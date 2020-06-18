@@ -17,6 +17,11 @@ var AndroidWindowTools = {
         run(success, error, "AndroidWindowTools", "getDisplayCutout");
     },
 
+	getMetrics: function(success, error)
+	{
+        run(success, error, "AndroidWindowTools", "getMetrics");
+	},
+
 	getRealMetrics: function(success, error)
 	{
         run(success, error, "AndroidWindowTools", "getRealMetrics");

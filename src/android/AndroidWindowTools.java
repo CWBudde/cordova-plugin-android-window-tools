@@ -35,6 +35,7 @@ public class AndroidWindowTools extends CordovaPlugin
 	public static final String ACTION_SET_SYSTEM_UI_VISIBILITY = "setSystemUiVisibility";
 	public static final String ACTION_GET_SOFTWARE_KEYS = "getSoftwareKeys";
 	public static final String ACTION_GET_DISPLAY_CUTOUT = "getDisplayCutout";
+	public static final String ACTION_GET_METRICS = "getMetrics";
 	public static final String ACTION_GET_REAL_SIZE = "getRealSize";
 	public static final String ACTION_GET_REAL_METRICS = "getRealMetrics";
 
@@ -86,6 +87,8 @@ public class AndroidWindowTools extends CordovaPlugin
 			return getSoftwareKeys();
 		else if (ACTION_GET_DISPLAY_CUTOUT.equals(action))
 			return getDisplayCutout();
+		else if (ACTION_GET_METRICS.equals(action))
+			return getMetrics();
 		else if (ACTION_GET_REAL_METRICS.equals(action))
 			return getRealMetrics();
 		else if (ACTION_GET_REAL_SIZE.equals(action))
@@ -224,6 +227,43 @@ public class AndroidWindowTools extends CordovaPlugin
 	
 					DisplayMetrics realDisplayMetrics = new DisplayMetrics();
 					d.getRealMetrics(realDisplayMetrics);
+	
+					int realHeight = realDisplayMetrics.heightPixels;
+					int realWidth = realDisplayMetrics.widthPixels;
+	
+					JSONObject json = new JSONObject();
+            		json.put("width", realWidth);
+            		json.put("height", realHeight);
+	
+					context.sendPluginResult(new PluginResult(PluginResult.Status.OK, json));
+				} 
+				catch (Exception e)
+				{
+					context.error(e.getMessage());
+				}
+			}
+		});
+
+		return true;
+	}
+
+	private boolean getMetrics() {
+        if(Build.VERSION.SDK_INT < 21) {
+            context.sendPluginResult(new PluginResult(PluginResult.Status.OK, 0));
+            return true;
+        }
+
+		activity.runOnUiThread(new Runnable()
+		{
+			@Override
+			public void run() 
+			{
+				try
+				{
+					Display d = decorView.getDisplay();
+	
+					DisplayMetrics realDisplayMetrics = new DisplayMetrics();
+					d.getMetrics(realDisplayMetrics);
 	
 					int realHeight = realDisplayMetrics.heightPixels;
 					int realWidth = realDisplayMetrics.widthPixels;
