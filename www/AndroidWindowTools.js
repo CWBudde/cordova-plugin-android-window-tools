@@ -1,6 +1,6 @@
 var run = require("cordova/exec");
 
-var FullscreenNotch = {
+var AndroidWindowTools = {
 
 	SYSTEM_UI_FLAG_FULLSCREEN: 4,
 	SYSTEM_UI_FLAG_HIDE_NAVIGATION: 2,
