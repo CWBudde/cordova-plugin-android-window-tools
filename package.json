@@ -1,0 +1,35 @@
+{
+  "name": "cordova-plugin-android-window-tools",
+  "version": "1.0.0",
+  "description": "Plugin for Cordova to setup the screen layout",
+  "cordova": {
+    "id": "cordova-plugin-android-window-tools",
+    "platforms": [
+      "android"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cwbudde/cordova-plugin-android-window-tools.git"
+  },
+  "keywords": [
+    "cordova",
+    "android",
+    "fullscreen",
+    "notch",
+    "ecosystem:cordova",
+    "cordova-android"
+  ],
+  "engines": [
+    {
+      "name": "cordova",
+      "version": ">=8.0.0"
+    }
+  ],
+  "author": "Christian-W. Budde",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/CWBudde/cordova-plugin-android-window-tools/issues"
+  },
+  "homepage": "https://github.com/CWBudde/cordova-android-window-tools#readme"
+}
