@@ -1,4 +1,4 @@
-package de.pcjv.AndroidWindowTools;
+package de.pcjv.awt;
 
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaArgs;
