@@ -13,6 +13,15 @@ var AndroidWindowTools = {
 	SYSTEM_UI_FLAG_LOW_PROFILE: 1,
 	SYSTEM_UI_FLAG_VISIBLE: 0,
 		
+    getDisplayCutout: function(success, error) {
+        run(success, error, "AndroidWindowTools", "getDisplayCutout");
+    },
+
+	getRealMetrics: function(success, error)
+	{
+        run(success, error, "AndroidWindowTools", "getRealMetrics");
+	},
+
 	getRealSize: function(success, error)
 	{
         run(success, error, "AndroidWindowTools", "getRealSize");
@@ -20,10 +29,6 @@ var AndroidWindowTools = {
 
     getSoftwareKeys: function(success, error) {
         run(success, error, "AndroidWindowTools", "getSoftwareKeys");
-    },
-
-    getDisplayCutout: function(success, error) {
-        run(success, error, "AndroidWindowTools", "getDisplayCutout");
     },
 
 	setSystemUiVisibility: function(visibility, success, error)

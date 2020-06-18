@@ -36,6 +36,7 @@ public class AndroidWindowTools extends CordovaPlugin
 	public static final String ACTION_GET_SOFTWARE_KEYS = "getSoftwareKeys";
 	public static final String ACTION_GET_DISPLAY_CUTOUT = "getDisplayCutout";
 	public static final String ACTION_GET_REAL_SIZE = "getRealSize";
+	public static final String ACTION_GET_REAL_METRICS = "getRealMetrics";
 
 	private CallbackContext context;
 	private Activity activity;
@@ -85,6 +86,8 @@ public class AndroidWindowTools extends CordovaPlugin
 			return getSoftwareKeys();
 		else if (ACTION_GET_DISPLAY_CUTOUT.equals(action))
 			return getDisplayCutout();
+		else if (ACTION_GET_REAL_METRICS.equals(action))
+			return getRealMetrics();
 		else if (ACTION_GET_REAL_SIZE.equals(action))
 			return getRealSize();
 
@@ -191,11 +194,48 @@ public class AndroidWindowTools extends CordovaPlugin
 					decorView.getDisplay().getRealSize(outSize);
 
 					JSONObject json = new JSONObject();
-            		json.put("x", outSize.x);
-            		json.put("y", outSize.y);
-					final PluginResult res = new PluginResult(PluginResult.Status.OK, json);
-					context.sendPluginResult(res);
+            		json.put("width", outSize.x);
+            		json.put("height", outSize.y);
+
+					context.sendPluginResult(new PluginResult(PluginResult.Status.OK, json));
 				} catch (final Exception e) {
+					context.error(e.getMessage());
+				}
+			}
+		});
+
+		return true;
+	}
+
+	private boolean getRealMetrics() {
+        if(Build.VERSION.SDK_INT < 21) {
+            context.sendPluginResult(new PluginResult(PluginResult.Status.OK, 0));
+            return true;
+        }
+
+		activity.runOnUiThread(new Runnable()
+		{
+			@Override
+			public void run() 
+			{
+				try
+				{
+					Display d = decorView.getDisplay();
+	
+					DisplayMetrics realDisplayMetrics = new DisplayMetrics();
+					d.getRealMetrics(realDisplayMetrics);
+	
+					int realHeight = realDisplayMetrics.heightPixels;
+					int realWidth = realDisplayMetrics.widthPixels;
+	
+					JSONObject json = new JSONObject();
+            		json.put("width", realWidth);
+            		json.put("height", realHeight);
+	
+					context.sendPluginResult(new PluginResult(PluginResult.Status.OK, json);
+				} 
+				catch (Exception e)
+				{
 					context.error(e.getMessage());
 				}
 			}
