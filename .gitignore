@@ -1,5 +1,6 @@
 /example/platforms
 /example/plugins
+/example/node_modules
 /src/.settings
 /src/bin
 /src/.classpath

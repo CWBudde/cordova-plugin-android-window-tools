@@ -9,6 +9,7 @@ import org.apache.cordova.LOG;
 import org.apache.cordova.PluginResult;
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 import java.util.Arrays;
 
 import android.annotation.TargetApi;
@@ -23,6 +24,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowInsets;
 import android.view.WindowManager;
+import android.util.DisplayMetrics; 
 
 public class AndroidWindowTools extends CordovaPlugin
 {
@@ -74,9 +76,9 @@ public class AndroidWindowTools extends CordovaPlugin
 		decorView = window.getDecorView();
 
 		if (ACTION_SET_NAVIGATION_BAR_COLOR.equals(action))
-			return setNavigationBarBackgroundColor(args.getInt(0));
+			return setNavigationBarBackgroundColor(args.getString(0));
 		else if (ACTION_SET_STATUS_BAR_COLOR.equals(action))
-			return setStatusBarBackgroundColor(args.getInt(0));
+			return setStatusBarBackgroundColor(args.getString(0));
 		else if (ACTION_SET_SYSTEM_UI_VISIBILITY.equals(action))
 			return setSystemUiVisibility(args.getInt(0));
 		else if (ACTION_GET_SOFTWARE_KEYS.equals(action))
@@ -97,7 +99,7 @@ public class AndroidWindowTools extends CordovaPlugin
 	{
         if(Build.VERSION.SDK_INT < 28) {
             // DisplayCutout is not available on api < 28
-            callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK, 0));
+            context.sendPluginResult(new PluginResult(PluginResult.Status.OK, 0));
             return true;
         }
 
@@ -117,7 +119,13 @@ public class AndroidWindowTools extends CordovaPlugin
                     float right = cutout != null ? (cutout.getSafeInsetRight() * dens) : 0; 
                     float top = cutout != null ? (cutout.getSafeInsetTop() * dens) : 0; 
             
-            		context.sendPluginResult(new PluginResult(PluginResult.Status.OK, left, top, right, bottom));
+					JSONObject json = new JSONObject();
+            		json.put("left", left);
+            		json.put("top", top);
+            		json.put("right", right);
+            		json.put("bottom", bottom);
+
+					context.sendPluginResult(new PluginResult(PluginResult.Status.OK, json));
 				}
 				catch (Exception e)
 				{
@@ -132,12 +140,10 @@ public class AndroidWindowTools extends CordovaPlugin
 	private boolean getSoftwareKeys()
 	{
         if(Build.VERSION.SDK_INT < 21) {
-            callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK, 0));
+            context.sendPluginResult(new PluginResult(PluginResult.Status.OK, 0));
             return true;
         }
 
-		boolean hasSoftwareKeys = true;
-	
 		activity.runOnUiThread(new Runnable()
 		{
 			@Override
@@ -145,8 +151,7 @@ public class AndroidWindowTools extends CordovaPlugin
 			{
 				try
 				{
-
-					Display d = c.getWindowManager().getDefaultDisplay();
+					Display d = decorView.getDisplay();
 	
 					DisplayMetrics realDisplayMetrics = new DisplayMetrics();
 					d.getRealMetrics(realDisplayMetrics);
@@ -160,10 +165,8 @@ public class AndroidWindowTools extends CordovaPlugin
 					int displayHeight = displayMetrics.heightPixels;
 					int displayWidth = displayMetrics.widthPixels;
 	
-					hasSoftwareKeys =  (realWidth - displayWidth) > 0 ||
-									   (realHeight - displayHeight) > 0;
-
-					context.sendPluginResult(new PluginResult(PluginResult.Status.OK, hasSoftwareKeys));
+					context.sendPluginResult(new PluginResult(PluginResult.Status.OK, 
+                      (realWidth - displayWidth) > 0 || (realHeight - displayHeight) > 0));
 				} 
 				catch (Exception e)
 				{
@@ -187,7 +190,10 @@ public class AndroidWindowTools extends CordovaPlugin
 
 					decorView.getDisplay().getRealSize(outSize);
 
-					final PluginResult res = new PluginResult(PluginResult.Status.OK, outSize.x, outSize.y);
+					JSONObject json = new JSONObject();
+            		json.put("x", outSize.x);
+            		json.put("y", outSize.y);
+					final PluginResult res = new PluginResult(PluginResult.Status.OK, json);
 					context.sendPluginResult(res);
 				} catch (final Exception e) {
 					context.error(e.getMessage());
@@ -217,7 +223,7 @@ public class AndroidWindowTools extends CordovaPlugin
 		return true;
 	}
 
-	private void setStatusBarBackgroundColor(final String colorPref) {
+	private boolean setStatusBarBackgroundColor(final String colorPref) {
 		if (Build.VERSION.SDK_INT >= 21) {
 			if (colorPref != null && !colorPref.isEmpty()) {
 				window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
@@ -230,10 +236,15 @@ public class AndroidWindowTools extends CordovaPlugin
 					LOG.w(TAG, "Method window.setStatusBarColor not found for SDK level " + Build.VERSION.SDK_INT);
 				}
 			}
-		}
+            return true;
+        }
+        else
+        {
+            return false;
+        }
 	}
 
-	private void setNavigationBarBackgroundColor(final String colorPref) {
+	private boolean setNavigationBarBackgroundColor(final String colorPref) {
 		if (Build.VERSION.SDK_INT >= 21) {
 			if (colorPref != null && !colorPref.isEmpty()) {
 				window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
@@ -246,6 +257,11 @@ public class AndroidWindowTools extends CordovaPlugin
                     LOG.w(TAG, "Method window.setStatusBarColor not found for SDK level " + Build.VERSION.SDK_INT);
                 }
             }
+            return true;
+        }
+        else
+        {
+            return false;
         }
     }
 
