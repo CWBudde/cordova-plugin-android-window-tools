@@ -35,6 +35,7 @@
 		<button id="getSoftwareKeys">getSoftwareKeys</button>
 		<button id="getDisplayCutout">getDisplayCutout</button>
 		<button id="getRealSize">getRealSize</button>
+		<button id="getRealMetrics">getRealMetrics</button>
 		<button id="setNavigationBarColor">setNavigationBarColor</button>
 		<button id="setStatusBarColor">setStatusBarColor</button>
 		<button id="setSystemUiVisibility">setSystemUiVisibility</button>
@@ -53,12 +54,12 @@
 				console.log("It worked!", keys);
 			}
 
-			function successRealSizeFunction(json)
+			function successRealMetricsFunction(json)
 			{
 				console.log("It worked!", json);
 			}
 
-			function successRealMetricsFunction(json)
+			function successRealSizeFunction(json)
 			{
 				console.log("It worked!", json);
 			}
@@ -81,6 +82,11 @@
 			function getDisplayCutout()
 			{
 				AndroidWindowTools.getDisplayCutout(successDisplayCutout, errorFunction);
+			}
+		
+			function getRealMetrics()
+			{
+				AndroidWindowTools.getRealMetrics(successRealMetricsFunction, errorFunction);
 			}
 		
 			function getRealSize()
@@ -110,6 +116,7 @@
 		   	{
 				document.getElementById('getSoftwareKeys').addEventListener('click', getSoftwareKeys);
 				document.getElementById('getDisplayCutout').addEventListener('click', getDisplayCutout);
+				document.getElementById('getRealMetrics').addEventListener('click', getRealMetrics);
 				document.getElementById('getRealSize').addEventListener('click', getRealSize);
 				document.getElementById('setNavigationBarColor').addEventListener('click', setNavigationBarColor);
 				document.getElementById('setStatusBarColor').addEventListener('click', setStatusBarColor);
