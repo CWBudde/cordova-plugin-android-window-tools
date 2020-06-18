@@ -34,7 +34,7 @@
         <h1>Android Window Tools</h1>
 		<button id="getSoftwareKeys">getSoftwareKeys</button>
 		<button id="getDisplayCutout">getDisplayCutout</button>
-		<button id="getMetrics">getRealMetrics</button>
+		<button id="getMetrics">getMetrics</button>
 		<button id="getRealMetrics">getRealMetrics</button>
 		<button id="getRealSize">getRealSize</button>
 		<button id="setNavigationBarColor">setNavigationBarColor</button>
@@ -92,7 +92,7 @@
 		
 			function getMetrics()
 			{
-				AndroidWindowTools.getRealMetrics(successRealMetricsFunction, errorFunction);
+				AndroidWindowTools.getMetrics(successRealMetricsFunction, errorFunction);
 			}
 		
 			function getRealMetrics()
