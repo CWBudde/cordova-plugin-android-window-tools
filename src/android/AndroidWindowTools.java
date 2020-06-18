@@ -74,9 +74,9 @@ public class AndroidWindowTools extends CordovaPlugin
 		decorView = window.getDecorView();
 
 		if (ACTION_SET_NAVIGATION_BAR_COLOR.equals(action))
-			return setNavigationBarColor(args.getInt(0));
+			return setNavigationBarBackgroundColor(args.getInt(0));
 		else if (ACTION_SET_STATUS_BAR_COLOR.equals(action))
-			return setStatusBarColor(args.getInt(0));
+			return setStatusBarBackgroundColor(args.getInt(0));
 		else if (ACTION_SET_SYSTEM_UI_VISIBILITY.equals(action))
 			return setSystemUiVisibility(args.getInt(0));
 		else if (ACTION_GET_SOFTWARE_KEYS.equals(action))
@@ -117,7 +117,7 @@ public class AndroidWindowTools extends CordovaPlugin
                     float right = cutout != null ? (cutout.getSafeInsetRight() * dens) : 0; 
                     float top = cutout != null ? (cutout.getSafeInsetTop() * dens) : 0; 
             
-            		callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK, left, top, right, bottom));
+            		context.sendPluginResult(new PluginResult(PluginResult.Status.OK, left, top, right, bottom));
 				}
 				catch (Exception e)
 				{
@@ -163,7 +163,7 @@ public class AndroidWindowTools extends CordovaPlugin
 					hasSoftwareKeys =  (realWidth - displayWidth) > 0 ||
 									   (realHeight - displayHeight) > 0;
 
-					callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK, hasSoftwareKeys));
+					context.sendPluginResult(new PluginResult(PluginResult.Status.OK, hasSoftwareKeys));
 				} 
 				catch (Exception e)
 				{
