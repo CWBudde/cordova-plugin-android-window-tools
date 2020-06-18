@@ -226,15 +226,20 @@ public class AndroidWindowTools extends CordovaPlugin
 	private boolean setStatusBarBackgroundColor(final String colorPref) {
 		if (Build.VERSION.SDK_INT >= 21) {
 			if (colorPref != null && !colorPref.isEmpty()) {
-				window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-				window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-				try {
-					window.setStatusBarColor(Color.parseColor(colorPref));
-				} catch (final IllegalArgumentException ignore) {
-					LOG.e(TAG, "Invalid hexString argument, use f.i. '#999999'");
-				} catch (final Exception ignore) {
-					LOG.w(TAG, "Method window.setStatusBarColor not found for SDK level " + Build.VERSION.SDK_INT);
-				}
+				this.cordova.getActivity().runOnUiThread(new Runnable() {
+					@Override
+					public void run() {
+						window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+						window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+						try {
+							window.setStatusBarColor(Color.parseColor(colorPref));
+						} catch (final IllegalArgumentException ignore) {
+							LOG.e(TAG, "Invalid hexString argument, use f.i. '#999999'");
+						} catch (final Exception ignore) {
+							LOG.w(TAG, "Method window.setStatusBarColor not found for SDK level " + Build.VERSION.SDK_INT);
+						}
+					}
+				});
 			}
             return true;
         }
@@ -247,15 +252,20 @@ public class AndroidWindowTools extends CordovaPlugin
 	private boolean setNavigationBarBackgroundColor(final String colorPref) {
 		if (Build.VERSION.SDK_INT >= 21) {
 			if (colorPref != null && !colorPref.isEmpty()) {
-				window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-				window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-				try {
-					window.setNavigationBarColor(Color.parseColor(colorPref));
-				} catch (final IllegalArgumentException ignore) {
-					LOG.e(TAG, "Invalid hexString argument, use f.i. '#999999'");
-				} catch (final Exception ignore) {
-                    LOG.w(TAG, "Method window.setStatusBarColor not found for SDK level " + Build.VERSION.SDK_INT);
-                }
+				this.cordova.getActivity().runOnUiThread(new Runnable() {
+					@Override
+					public void run() {
+						window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+						window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+						try {
+							window.setNavigationBarColor(Color.parseColor(colorPref));
+						} catch (final IllegalArgumentException ignore) {
+							LOG.e(TAG, "Invalid hexString argument, use f.i. '#999999'");
+						} catch (final Exception ignore) {
+        		            LOG.w(TAG, "Method window.setStatusBarColor not found for SDK level " + Build.VERSION.SDK_INT);
+						}
+					}
+				});
             }
             return true;
         }

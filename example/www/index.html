@@ -58,9 +58,9 @@
 				console.log("It worked!", width, height);
 			}
 
-			function successDisplayCutout(left, top, right, bottom)
+			function successDisplayCutout(json)
 			{
-				console.log("It worked!", left, top, right, bottom);
+				console.log("It worked!", json);
 			}
 
 		   	function errorFunction(error)
@@ -75,7 +75,7 @@
 		
 			function getDisplayCutout()
 			{
-				AndroidWindowTools.getDisplayCutout(successFunction, errorFunction);
+				AndroidWindowTools.getDisplayCutout(successDisplayCutout, errorFunction);
 			}
 		
 			function getRealSize()
