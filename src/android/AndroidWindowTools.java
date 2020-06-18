@@ -232,7 +232,7 @@ public class AndroidWindowTools extends CordovaPlugin
             		json.put("width", realWidth);
             		json.put("height", realHeight);
 	
-					context.sendPluginResult(new PluginResult(PluginResult.Status.OK, json);
+					context.sendPluginResult(new PluginResult(PluginResult.Status.OK, json));
 				} 
 				catch (Exception e)
 				{
@@ -295,14 +295,14 @@ public class AndroidWindowTools extends CordovaPlugin
 				this.cordova.getActivity().runOnUiThread(new Runnable() {
 					@Override
 					public void run() {
-						window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+						window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
 						window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
 						try {
 							window.setNavigationBarColor(Color.parseColor(colorPref));
 						} catch (final IllegalArgumentException ignore) {
 							LOG.e(TAG, "Invalid hexString argument, use f.i. '#999999'");
 						} catch (final Exception ignore) {
-        		            LOG.w(TAG, "Method window.setStatusBarColor not found for SDK level " + Build.VERSION.SDK_INT);
+        		            LOG.w(TAG, "Method window.setNavigationBarColor not found for SDK level " + Build.VERSION.SDK_INT);
 						}
 					}
 				});
