@@ -33,6 +33,8 @@ public class AndroidWindowTools extends CordovaPlugin
 	public static final String ACTION_SET_NAVIGATION_BAR_COLOR = "setNavigationBarColor";
 	public static final String ACTION_SET_STATUS_BAR_COLOR = "setStatusBarColor";
 	public static final String ACTION_SET_SYSTEM_UI_VISIBILITY = "setSystemUiVisibility";
+	public static final String ACTION_ADD_WINDOW_FLAGS = "addWindowFlags";
+	public static final String ACTION_CLEAR_WINDOW_FLAGS = "clearWindowFlags";
 	public static final String ACTION_GET_SOFTWARE_KEYS = "getSoftwareKeys";
 	public static final String ACTION_GET_DISPLAY_CUTOUT = "getDisplayCutout";
 	public static final String ACTION_GET_METRICS = "getMetrics";
@@ -83,6 +85,10 @@ public class AndroidWindowTools extends CordovaPlugin
 			return setStatusBarBackgroundColor(args.getString(0));
 		else if (ACTION_SET_SYSTEM_UI_VISIBILITY.equals(action))
 			return setSystemUiVisibility(args.getInt(0));
+		else if (ACTION_SET_SYSTEM_UI_VISIBILITY.equals(action))
+			return addWindowFlags(args.getInt(0));
+		else if (ACTION_SET_SYSTEM_UI_VISIBILITY.equals(action))
+			return clearWindowFlags(args.getInt(0));
 		else if (ACTION_GET_SOFTWARE_KEYS.equals(action))
 			return getSoftwareKeys();
 		else if (ACTION_GET_DISPLAY_CUTOUT.equals(action))
@@ -295,6 +301,41 @@ public class AndroidWindowTools extends CordovaPlugin
 					decorView.setSystemUiVisibility(visibility);
 					context.success();
 				} catch (final Exception e) {
+					LOG.e(TAG, "Error setting system UI visibility");
+					context.error(e.getMessage());
+				}
+			}
+		});
+
+		return true;
+	}
+
+	private boolean addWindowFlags(final int flags) {
+		activity.runOnUiThread(new Runnable() {
+			@Override
+			public void run() {
+				try {
+					window.addFlags(flags);
+					context.success();
+				} catch (final Exception e) {
+					LOG.e(TAG, "Error addng window flags");
+					context.error(e.getMessage());
+				}
+			}
+		});
+
+		return true;
+	}
+
+	private boolean clearWindowFlags(final int flags) {
+		activity.runOnUiThread(new Runnable() {
+			@Override
+			public void run() {
+				try {
+					window.clearFlags(flags);
+					context.success();
+				} catch (final Exception e) {
+					LOG.e(TAG, "Error clearing window flags");
 					context.error(e.getMessage());
 				}
 			}
