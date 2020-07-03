@@ -319,7 +319,7 @@ public class AndroidWindowTools extends CordovaPlugin
 				@Override
 				public void run() {
 					try {
-						window.layoutInDisplayCutoutMode = layoutInDisplayCutoutMode;
+						//window.layoutInDisplayCutoutMode = layoutInDisplayCutoutMode;
 						context.success();
 					} catch (final Exception e) {
 						LOG.e(TAG, "Error setting layoutInDisplayCutoutMode");

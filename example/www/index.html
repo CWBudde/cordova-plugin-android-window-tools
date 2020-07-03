@@ -30,15 +30,14 @@
 	</head>
 
 	<body>
-
 		<h1>Android Window Tools</h1>
 		<button id="getSoftwareKeys">getSoftwareKeys</button>
 		<button id="getDisplayCutout">getDisplayCutout</button>
 		<button id="getMetrics">getMetrics</button>
 		<button id="getRealMetrics">getRealMetrics</button>
 		<button id="getRealSize">getRealSize</button>
-		<button id="setNavigationBarColor">setNavigationBarColor</button>
 		<button id="setStatusBarColor">setStatusBarColor</button>
+		<button id="setNavigationBarColor">setNavigationBarColor</button>
 		<button id="setSystemUiVisibility">setSystemUiVisibility</button>
 		<button id="setLayoutInDisplayCutoutMode">setLayoutInDisplayCutoutMode</button>
 		<button id="addWindowFlags">addWindowFlags</button>
@@ -47,6 +46,7 @@
 		<script type="text/javascript" src="cordova.js"></script>
 
 		<script type="text/javascript">
+		    IsFullScreen = true;
 
 			function successFunction()
 			{
@@ -120,14 +120,26 @@
 
 			function setSystemUiVisibility()
 			{
-				AndroidWindowTools.setSystemUiVisibility(
-				  AndroidWindowTools.SYSTEM_UI_FLAG_IMMERSIVE | 
-				  AndroidWindowTools.SYSTEM_UI_FLAG_LAYOUT_STABLE | 
-				  AndroidWindowTools.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION | 
-				  AndroidWindowTools.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | 
-				  AndroidWindowTools.SYSTEM_UI_FLAG_HIDE_NAVIGATION |
-				  AndroidWindowTools.SYSTEM_UI_FLAG_FULLSCREEN,
-				  successFunction, errorFunction);
+				IsFullScreen = !IsFullScreen;
+
+				if (IsFullScreen) {
+					AndroidWindowTools.setSystemUiVisibility(
+					  AndroidWindowTools.SYSTEM_UI_FLAG_IMMERSIVE | 
+					  AndroidWindowTools.SYSTEM_UI_FLAG_LAYOUT_STABLE | 
+					  AndroidWindowTools.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION | 
+					  AndroidWindowTools.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | 
+					  AndroidWindowTools.SYSTEM_UI_FLAG_HIDE_NAVIGATION |
+					  AndroidWindowTools.SYSTEM_UI_FLAG_FULLSCREEN,
+					  successFunction, errorFunction);
+				} else {
+					AndroidWindowTools.setSystemUiVisibility(
+					  AndroidWindowTools.SYSTEM_UI_FLAG_LAYOUT_STABLE |
+					  AndroidWindowTools.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN |
+					  AndroidWindowTools.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION |
+					  AndroidWindowTools.SYSTEM_UI_FLAG_LOW_PROFILE |
+					  AndroidWindowTools.SYSTEM_UI_FLAG_IMMERSIVE_STICKY,
+					  successFunction, errorFunction);
+				}
 			}
 
 			function setLayoutInDisplayCutoutMode()

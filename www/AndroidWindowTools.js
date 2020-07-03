@@ -87,10 +87,12 @@ var AndroidWindowTools = {
 		run(success, error, "AndroidWindowTools", "setSystemUiVisibility", [visibility || 0]);
 	},
 
+/*
 	setLayoutInDisplayCutoutMode: function(visibility, success, error)
 	{
 		run(success, error, "AndroidWindowTools", "setLayoutInDisplayCutoutMode", [visibility || 0]);
 	},
+*/
 
 	setStatusBarColor: function(color, success, error)
 	{

@@ -38,9 +38,6 @@ AndroidWindowTools.setStatusBarColor('#0f0', successFunction, errorFunction);
 // See https://developer.android.com/reference/android/view/View.html#setSystemUiVisibility(int)
 AndroidWindowTools.setSystemUiVisibility(AndroidWindowTools.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | AndroidWindowTools.SYSTEM_UI_FLAG_LAYOUT_STABLE | AndroidWindowTools.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION, successFunction, errorFunction);
 
-https://developer.android.com/reference/android/view/WindowManager.LayoutParams#layoutInDisplayCutoutMode
-AndroidWindowTools.setLayoutInDisplayCutoutMode(AndroidWindowTools.LAYOUT_IN_DISPLAY_CUTOUT_MODE_ALWAYS), successFunction, errorFunction);
-
 // See https://developer.android.com/reference/android/view/WindowManager.LayoutParams
 AndroidWindowTools.addWindowFlag(AndroidWindowTools.FLAG_FULLSCREEN, successFunction, errorFunction);
 AndroidWindowTools.clearWindowFlag(AndroidWindowTools.FLAG_FORCE_NOT_FULLSCREEN, successFunction, errorFunction);
