@@ -109,32 +109,42 @@
 
 			function setNavigationBarColor()
 			{
-				AndroidWindowTools.setNavigationBarColor('#f00', successFunction, errorFunction);
+				AndroidWindowTools.setNavigationBarColor('#ff0000', successFunction, errorFunction);
 			}
 		
 			function setStatusBarColor()
 			{
-				AndroidWindowTools.setStatusBarColor('#0f0', successFunction, errorFunction);
+				AndroidWindowTools.setStatusBarColor('#00ff00', successFunction, errorFunction);
 			}
 		
 			function setSystemUiVisibility()
 			{
 				AndroidWindowTools.setSystemUiVisibility(
-				  AndroidWindowTools.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | 
-				  AndroidWindowTools.SYSTEM_UI_FLAG_LAYOUT_STABLE | 
-				  AndroidWindowTools.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION, successFunction, errorFunction);
+				  AndroidWindowTools.SYSTEM_UI_FLAG_IMMERSIVE | 
+                  AndroidWindowTools.SYSTEM_UI_FLAG_LAYOUT_STABLE | 
+                  AndroidWindowTools.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION | 
+                  AndroidWindowTools.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | 
+                  AndroidWindowTools.SYSTEM_UI_FLAG_HIDE_NAVIGATION |
+                  AndroidWindowTools.SYSTEM_UI_FLAG_FULLSCREEN, 
+                  successFunction, errorFunction);
 			}
 		
 			function addWindowFlags()
 			{
 				AndroidWindowTools.addWindowFlags(
-				  AndroidWindowTools.FLAG_FULLSCREEN, successFunction, errorFunction);
+				  AndroidWindowTools.FLAG_FULLSCREEN |
+                  AndroidWindowTools.FLAG_TRANSLUCENT_STATUS |
+                  AndroidWindowTools.FLAG_TRANSLUCENT_NAVIGATION, 
+                  successFunction, errorFunction);
 			}
 		
 			function clearWindowFlags()
 			{
 				AndroidWindowTools.clearWindowFlags(
-				  AndroidWindowTools.FLAG_FORCE_NOT_FULLSCREEN, successFunction, errorFunction);
+				  AndroidWindowTools.FLAG_FORCE_NOT_FULLSCREEN | 
+                  AndroidWindowTools.FLAG_TRANSLUCENT_STATUS |
+                  AndroidWindowTools.FLAG_TRANSLUCENT_NAVIGATION, 
+                  successFunction, errorFunction);
 			}
 		
 			function deviceReady()
