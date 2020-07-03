@@ -40,11 +40,12 @@
 		<button id="setNavigationBarColor">setNavigationBarColor</button>
 		<button id="setStatusBarColor">setStatusBarColor</button>
 		<button id="setSystemUiVisibility">setSystemUiVisibility</button>
+		<button id="setLayoutInDisplayCutoutMode">setLayoutInDisplayCutoutMode</button>
 		<button id="addWindowFlags">addWindowFlags</button>
 		<button id="clearWindowFlags">clearWindowFlags</button>
 			
-        <script type="text/javascript" src="cordova.js"></script>
-        
+		<script type="text/javascript" src="cordova.js"></script>
+
 		<script type="text/javascript">
 
 			function successFunction()
@@ -109,46 +110,53 @@
 
 			function setNavigationBarColor()
 			{
-				AndroidWindowTools.setNavigationBarColor('#ff0000', successFunction, errorFunction);
+				AndroidWindowTools.setNavigationBarColor('#f00', successFunction, errorFunction);
 			}
-		
+
 			function setStatusBarColor()
 			{
-				AndroidWindowTools.setStatusBarColor('#00ff00', successFunction, errorFunction);
+				AndroidWindowTools.setStatusBarColor('#0f0', successFunction, errorFunction);
 			}
-		
+
 			function setSystemUiVisibility()
 			{
 				AndroidWindowTools.setSystemUiVisibility(
 				  AndroidWindowTools.SYSTEM_UI_FLAG_IMMERSIVE | 
-                  AndroidWindowTools.SYSTEM_UI_FLAG_LAYOUT_STABLE | 
-                  AndroidWindowTools.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION | 
-                  AndroidWindowTools.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | 
-                  AndroidWindowTools.SYSTEM_UI_FLAG_HIDE_NAVIGATION |
-                  AndroidWindowTools.SYSTEM_UI_FLAG_FULLSCREEN, 
-                  successFunction, errorFunction);
+				  AndroidWindowTools.SYSTEM_UI_FLAG_LAYOUT_STABLE | 
+				  AndroidWindowTools.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION | 
+				  AndroidWindowTools.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | 
+				  AndroidWindowTools.SYSTEM_UI_FLAG_HIDE_NAVIGATION |
+				  AndroidWindowTools.SYSTEM_UI_FLAG_FULLSCREEN,
+				  successFunction, errorFunction);
 			}
-		
+
+			function setLayoutInDisplayCutoutMode()
+			{
+				AndroidWindowTools.setLayoutInDisplayCutoutMode(
+				  AndroidWindowTools.LAYOUT_IN_DISPLAY_CUTOUT_MODE_ALWAYS, 
+				  successFunction, errorFunction);
+			}
+
 			function addWindowFlags()
 			{
 				AndroidWindowTools.addWindowFlags(
 				  AndroidWindowTools.FLAG_FULLSCREEN |
-                  AndroidWindowTools.FLAG_TRANSLUCENT_STATUS |
-                  AndroidWindowTools.FLAG_TRANSLUCENT_NAVIGATION, 
-                  successFunction, errorFunction);
+				  AndroidWindowTools.FLAG_TRANSLUCENT_STATUS |
+				  AndroidWindowTools.FLAG_TRANSLUCENT_NAVIGATION,
+				  successFunction, errorFunction);
 			}
-		
+
 			function clearWindowFlags()
 			{
 				AndroidWindowTools.clearWindowFlags(
 				  AndroidWindowTools.FLAG_FORCE_NOT_FULLSCREEN | 
-                  AndroidWindowTools.FLAG_TRANSLUCENT_STATUS |
-                  AndroidWindowTools.FLAG_TRANSLUCENT_NAVIGATION, 
-                  successFunction, errorFunction);
+				  AndroidWindowTools.FLAG_TRANSLUCENT_STATUS |
+				  AndroidWindowTools.FLAG_TRANSLUCENT_NAVIGATION,
+				  successFunction, errorFunction);
 			}
-		
+
 			function deviceReady()
-		   	{
+			{
 				document.getElementById('getSoftwareKeys').addEventListener('click', getSoftwareKeys);
 				document.getElementById('getDisplayCutout').addEventListener('click', getDisplayCutout);
 				document.getElementById('getMetrics').addEventListener('click', getMetrics);
@@ -157,12 +165,13 @@
 				document.getElementById('setNavigationBarColor').addEventListener('click', setNavigationBarColor);
 				document.getElementById('setStatusBarColor').addEventListener('click', setStatusBarColor);
 				document.getElementById('setSystemUiVisibility').addEventListener('click', setSystemUiVisibility);
+				document.getElementById('setLayoutInDisplayCutoutMode').addEventListener('click', setLayoutInDisplayCutoutMode);
 				document.getElementById('addWindowFlags').addEventListener('click', addWindowFlags);
 				document.getElementById('clearWindowFlags').addEventListener('click', clearWindowFlags);
-		   	}
-		   	
+			}
+
 			document.addEventListener('deviceready', deviceReady);
-			
+
 		</script>
 	</body>
 </html>

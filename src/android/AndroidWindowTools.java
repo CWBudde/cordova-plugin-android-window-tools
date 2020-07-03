@@ -35,6 +35,7 @@ public class AndroidWindowTools extends CordovaPlugin
 	public static final String ACTION_SET_SYSTEM_UI_VISIBILITY = "setSystemUiVisibility";
 	public static final String ACTION_ADD_WINDOW_FLAGS = "addWindowFlags";
 	public static final String ACTION_CLEAR_WINDOW_FLAGS = "clearWindowFlags";
+	public static final String ACTION_SET_LAYOUT_IN_DISPLAY_CUTOUT_MODE = "setLayoutInDisplayCutoutMode";
 	public static final String ACTION_GET_SOFTWARE_KEYS = "getSoftwareKeys";
 	public static final String ACTION_GET_DISPLAY_CUTOUT = "getDisplayCutout";
 	public static final String ACTION_GET_METRICS = "getMetrics";
@@ -89,6 +90,8 @@ public class AndroidWindowTools extends CordovaPlugin
 			return addWindowFlags(args.getInt(0));
 		else if (ACTION_SET_SYSTEM_UI_VISIBILITY.equals(action))
 			return clearWindowFlags(args.getInt(0));
+		else if (ACTION_SET_LAYOUT_IN_DISPLAY_CUTOUT_MODE.equals(action))
+			return setLayoutInDisplayCutoutMode(args.getInt(0));
 		else if (ACTION_GET_SOFTWARE_KEYS.equals(action))
 			return getSoftwareKeys();
 		else if (ACTION_GET_DISPLAY_CUTOUT.equals(action))
@@ -306,6 +309,25 @@ public class AndroidWindowTools extends CordovaPlugin
 				}
 			}
 		});
+
+		return true;
+	}
+    
+	private boolean setLayoutInDisplayCutoutMode(final int layoutInDisplayCutoutMode) {
+		if(Build.VERSION.SDK_INT >= 28) {
+			activity.runOnUiThread(new Runnable() {
+				@Override
+				public void run() {
+					try {
+						window.layoutInDisplayCutoutMode = layoutInDisplayCutoutMode;
+						context.success();
+					} catch (final Exception e) {
+						LOG.e(TAG, "Error setting layoutInDisplayCutoutMode");
+						context.error(e.getMessage());
+					}
+				}
+        	});
+		}
 
 		return true;
 	}

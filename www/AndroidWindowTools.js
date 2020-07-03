@@ -44,6 +44,11 @@ var AndroidWindowTools = {
 	FLAG_DIM_BEHIND: 2,
 	FLAG_ALLOW_LOCK_WHILE_SCREEN_ON: 1,
 
+	LAYOUT_IN_DISPLAY_CUTOUT_MODE_ALWAYS: 3,
+	LAYOUT_IN_DISPLAY_CUTOUT_MODE_NEVER: 2,
+	LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES: 1,
+	LAYOUT_IN_DISPLAY_CUTOUT_MODE_DEFAULT: 0,
+
 	getDisplayCutout: function(success, error) {
         run(success, error, "AndroidWindowTools", "getDisplayCutout");
     },
@@ -82,13 +87,36 @@ var AndroidWindowTools = {
 		run(success, error, "AndroidWindowTools", "setSystemUiVisibility", [visibility || 0]);
 	},
 
+	setLayoutInDisplayCutoutMode: function(visibility, success, error)
+	{
+		run(success, error, "AndroidWindowTools", "setLayoutInDisplayCutoutMode", [visibility || 0]);
+	},
+
 	setStatusBarColor: function(color, success, error)
 	{
+		if (color.charAt(0) !== '#') {
+			color = '#' + color;
+		}
+
+		if (color.length === 4) {
+			var split = color.split('');
+			color = '#' + split[1] + split[1] + split[2] + split[2] + split[3] + split[3];
+		}
+
 		run(success, error, "AndroidWindowTools", "setStatusBarColor", [color]);
 	},
 
 	setNavigationBarColor: function(color, success, error)
 	{
+		if (color.charAt(0) !== '#') {
+			color = '#' + color;
+		}
+
+		if (color.length === 4) {
+			var split = color.split('');
+			color = '#' + split[1] + split[1] + split[2] + split[2] + split[3] + split[3];
+		}
+
 		run(success, error, "AndroidWindowTools", "setNavigationBarColor", [color]);
 	}
 };
