@@ -85,9 +85,9 @@ public class AndroidWindowTools extends CordovaPlugin
 			return setStatusBarBackgroundColor(args.getString(0));
 		else if (ACTION_SET_SYSTEM_UI_VISIBILITY.equals(action))
 			return setSystemUiVisibility(args.getInt(0));
-		else if (ACTION_SET_SYSTEM_UI_VISIBILITY.equals(action))
+		else if (ACTION_ADD_WINDOW_FLAGS.equals(action))
 			return addWindowFlags(args.getInt(0));
-		else if (ACTION_SET_SYSTEM_UI_VISIBILITY.equals(action))
+		else if (ACTION_CLEAR_WINDOW_FLAGS.equals(action))
 			return clearWindowFlags(args.getInt(0));
 		else if (ACTION_GET_SOFTWARE_KEYS.equals(action))
 			return getSoftwareKeys();
